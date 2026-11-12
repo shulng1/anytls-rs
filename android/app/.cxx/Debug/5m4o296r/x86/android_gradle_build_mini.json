@@ -1,0 +1,27 @@
+{
+  "buildFiles": [
+    "/workspace/android/app/src/main/jni/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/usr/bin/ninja",
+      "-C",
+      "/workspace/android/app/.cxx/Debug/5m4o296r/x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/usr/bin/ninja",
+    "-C",
+    "/workspace/android/app/.cxx/Debug/5m4o296r/x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "anytls_jni::@6890427a1f51a3e7e1df": {
+      "artifactName": "anytls_jni",
+      "abi": "x86",
+      "output": "/workspace/android/app/build/intermediates/cxx/Debug/5m4o296r/obj/x86/libanytls_jni.so",
+      "runtimeFiles": []
+    }
+  }
+}

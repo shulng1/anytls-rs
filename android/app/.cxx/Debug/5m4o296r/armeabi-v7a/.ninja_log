@@ -1,0 +1,5 @@
+# ninja log v5
+3	80	1794494700496595501	CMakeFiles/anytls_jni.dir/anytls_jni.c.o	e1b706f0d599dffb
+82	149	1794494700564596081	/workspace/android/app/build/intermediates/cxx/Debug/5m4o296r/obj/armeabi-v7a/libanytls_jni.so	f3691b0731ea33ba
+4	76	1794494782161293380	CMakeFiles/anytls_jni.dir/anytls_jni.c.o	e1b706f0d599dffb
+76	144	1794494782229293961	/workspace/android/app/build/intermediates/cxx/Debug/5m4o296r/obj/armeabi-v7a/libanytls_jni.so	f3691b0731ea33ba

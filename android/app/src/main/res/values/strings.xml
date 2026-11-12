@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AnyTLS</string>
+    <string name="subtitle">AnyTLS 代理客户端</string>
+
+    <string name="section_server">服务器配置</string>
+    <string name="label_server">服务器地址</string>
+    <string name="hint_server">example.com 或 1.2.3.4</string>
+    <string name="label_port">端口</string>
+    <string name="label_socks_port">本地 SOCKS5 端口</string>
+    <string name="label_password">密码</string>
+    <string name="label_sni">SNI（可选）</string>
+    <string name="hint_sni">留空则使用服务器地址</string>
+    <string name="insecure">允许不安全 TLS（跳过证书校验，仅限测试）</string>
+
+    <string name="connect">连接</string>
+    <string name="disconnect">断开</string>
+    <string name="status_title">连接状态</string>
+    <string name="status_idle">未连接</string>
+    <string name="traffic_title">流量</string>
+    <string name="traffic_value">↑ %1$s    ↓ %2$s</string>
+    <string name="logs_title">运行日志</string>
+
+    <string name="notification_channel">连接状态</string>
+    <string name="notification_stop">断开</string>
+    <string name="vpn_permission_denied">未授予 VPN 权限，无法连接</string>
+    <string name="invalid_server">请填写服务器地址</string>
+    <string name="invalid_port">端口必须是 1-65535 之间的数字</string>
+    <string name="invalid_socks_port">本地 SOCKS5 端口必须在 1024-65535 之间</string>
+    <string name="invalid_password">请填写密码</string>
+</resources>
