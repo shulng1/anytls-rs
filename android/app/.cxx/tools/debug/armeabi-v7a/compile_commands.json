@@ -1,8 +1,0 @@
-[
-{
-  "directory": "/workspace/android/app/.cxx/Debug/5m4o296r/armeabi-v7a",
-  "command": "/opt/android-sdk/ndk/27.2.12479018/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=armv7-none-linux-androideabi29 --sysroot=/opt/android-sdk/ndk/27.2.12479018/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Danytls_jni_EXPORTS -I/workspace/android/app/src/main/jni -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -fno-limit-debug-info  -std=gnu11 -fPIC -o CMakeFiles/anytls_jni.dir/anytls_jni.c.o -c /workspace/android/app/src/main/jni/anytls_jni.c",
-  "file": "/workspace/android/app/src/main/jni/anytls_jni.c",
-  "output": "CMakeFiles/anytls_jni.dir/anytls_jni.c.o"
-}
-]

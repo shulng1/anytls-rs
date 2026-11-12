@@ -1,5 +1,0 @@
-# ninja log v5
-3	77	1794494702012608456	CMakeFiles/anytls_jni.dir/anytls_jni.c.o	643a38f46dc32569
-79	147	1794494702080609037	/workspace/android/app/build/intermediates/cxx/Debug/5m4o296r/obj/x86_64/libanytls_jni.so	cdabf7bb8923d809
-4	69	1794494782517296422	CMakeFiles/anytls_jni.dir/anytls_jni.c.o	643a38f46dc32569
-70	135	1794494782585297004	/workspace/android/app/build/intermediates/cxx/Debug/5m4o296r/obj/x86_64/libanytls_jni.so	cdabf7bb8923d809

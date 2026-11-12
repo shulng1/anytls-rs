@@ -1,3 +1,0 @@
-/workspace/android/app/.cxx/Debug/5m4o296r/arm64-v8a/CMakeFiles/anytls_jni.dir
-/workspace/android/app/.cxx/Debug/5m4o296r/arm64-v8a/CMakeFiles/edit_cache.dir
-/workspace/android/app/.cxx/Debug/5m4o296r/arm64-v8a/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,117 @@
+name: Android
+
+on:
+  push:
+    branches: ["**"]
+    tags-ignore: ["*"]
+    paths:
+      - "android/**"
+      - "src/**"
+      - "Cargo.toml"
+      - "scripts/build-android-libs.sh"
+      - ".github/workflows/android.yml"
+  pull_request:
+    branches: ["**"]
+    paths:
+      - "android/**"
+      - "src/**"
+      - "Cargo.toml"
+      - "scripts/build-android-libs.sh"
+      - ".github/workflows/android.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: android-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  ANDROID_NDK_VERSION: 27.2.12479018
+  # heiher/hev-socks5-tunnel, pinned for reproducible builds.
+  HEV_SOCKS5_TUNNEL_REV: 786edc86f92e17e91d180f43f1f70cd323f6a243
+
+jobs:
+  apk:
+    name: Build debug APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-linux-android,armv7-linux-androideabi,x86_64-linux-android,i686-linux-android
+
+      - name: Cache Rust build
+        uses: Swatinem/rust-cache@v2
+        with:
+          shared-key: android
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install SDK and NDK packages
+        run: |
+          sdkmanager --install \
+            "platforms;android-35" \
+            "build-tools;35.0.0" \
+            "ndk;${ANDROID_NDK_VERSION}" \
+            "cmake;3.22.1"
+          echo "ANDROID_NDK_HOME=$ANDROID_HOME/ndk/${ANDROID_NDK_VERSION}" >> "$GITHUB_ENV"
+
+      - name: Build AnyTLS native libraries
+        run: ./scripts/build-android-libs.sh
+
+      - name: Build tun2socks (hev-socks5-tunnel)
+        run: |
+          git clone https://github.com/heiher/hev-socks5-tunnel.git /tmp/hev-socks5-tunnel
+          git -C /tmp/hev-socks5-tunnel checkout "$HEV_SOCKS5_TUNNEL_REV"
+          git -C /tmp/hev-socks5-tunnel submodule update --init --recursive
+          cd /tmp/hev-socks5-tunnel
+          "$ANDROID_NDK_HOME/ndk-build" \
+            NDK_PROJECT_PATH=. \
+            APP_BUILD_SCRIPT=Android.mk \
+            NDK_APPLICATION_MK=Application.mk \
+            APP_ABI="arm64-v8a armeabi-v7a x86 x86_64" \
+            -j"$(nproc)"
+          for abi in arm64-v8a armeabi-v7a x86 x86_64; do
+            cp "libs/$abi/libhev-socks5-tunnel.so" \
+              "$GITHUB_WORKSPACE/android/app/src/main/jniLibs/$abi/"
+          done
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.14.6"
+
+      - name: Build APK
+        working-directory: android
+        run: |
+          echo "sdk.dir=$ANDROID_HOME" > local.properties
+          echo "cmake.dir=$ANDROID_HOME/cmake/3.22.1" >> local.properties
+          gradle --no-daemon assembleDebug
+
+      - name: Collect artifacts
+        run: |
+          mkdir -p dist
+          cp android/app/build/outputs/apk/debug/app-debug.apk dist/anytls-android-debug.apk
+          sha256sum dist/anytls-android-debug.apk > dist/anytls-android-debug.apk.sha256
+          cat dist/anytls-android-debug.apk.sha256
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: anytls-android-apk
+          path: dist/
+          if-no-files-found: error
